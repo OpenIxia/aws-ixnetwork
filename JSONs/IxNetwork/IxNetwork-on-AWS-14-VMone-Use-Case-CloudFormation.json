@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Insight 2020 IxNetwork on AWS 14-VMone Test CloudFormation",
+	"Description": "IxNetwork on AWS 14-VMone Test CloudFormation",
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
@@ -3694,14 +3694,12 @@
         "UserEmailTag" : {
         "Description" : "Email address tag of user creating the stack",
         "MinLength": "14",
-        "Type" : "String",
-		"Default": "a-joseph.dupre@keysight.com"
+        "Type" : "String"
       },
         "UserLoginTag" : {
         "Description" : "Login ID tag of user creating the stack",
         "MinLength": "4",
-        "Type" : "String",
-		"Default": "armdupre"
+        "Type" : "String"
       },
         "IxClientInstanceType" : {
         "Description" : "Instance type of Ixia Client VM",
@@ -3715,8 +3713,7 @@
       },
         "IxClientSSHKey" : {
         "Description" : "Name of an existing EC2 KeyPair to enable SSH access",
-        "Type" : "AWS::EC2::KeyPair::KeyName",
-        "Default" : "keysight-aws-dev-isgseglobal-key-pair-us-east-1"
+        "Type" : "AWS::EC2::KeyPair::KeyName"
       },
         "VMoneInstanceType" : {
         "Description" : "Instance type of VMONE Appliance VM",
@@ -3735,8 +3732,7 @@
         "Description" : "IP Address /32 or IP CIDR range connecting inbound to Ixia Client",
         "MaxLength": "18",
         "MinLength": "9",
-		"Type" : "String",
-        "Default" : "204.9.57.138/32"
+		"Type" : "String"
       }
     },
 	"Outputs": {
