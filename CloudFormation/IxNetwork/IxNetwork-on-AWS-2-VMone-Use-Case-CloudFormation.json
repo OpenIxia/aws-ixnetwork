@@ -132,8 +132,8 @@
 		},
 		"VariableMap" : {
 			"global" : {
-				"OPTIONSxTAG" : "MANUAL",
-				"PROJECTxTAG" : "INSIGHT_2020",
+				"OPTIONSxTAG" : "Optional-Options-Tag",
+				"PROJECTxTAG" : "Optional-Project-Tag",
 				"VPCxCIDRxBLOCK" : "10.0.0.0/16",
 				"VPCxINSTANCExTENANCY" : "default",
 				"VPCxENABLExDNSxSUPPORT" : true,
