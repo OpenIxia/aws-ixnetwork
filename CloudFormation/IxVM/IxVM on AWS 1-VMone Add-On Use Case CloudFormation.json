@@ -75,7 +75,7 @@
 		"VariableMap" : {
 			"global" : {
 				"OPTIONSxTAG" : "MANUAL",
-				"PROJECTxTAG" : "INSIGHT_2019",
+				"PROJECTxTAG" : "OPEN_IXIA",
 				"PLACEMENTxGROUPxSTRATEGY" : "cluster",
 				"INTERFACExSOURCExDESTxCHECK" : false,
 				"INSTANCExDISABLExAPIxTERMINATION" : false,
