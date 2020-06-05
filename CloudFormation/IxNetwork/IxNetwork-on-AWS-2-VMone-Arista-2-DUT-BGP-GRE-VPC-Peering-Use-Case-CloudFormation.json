@@ -151,7 +151,7 @@
 		"VariableMap" : {
 			"global" : {
 				"OPTIONSxTAG" : "MANUAL",
-				"PROJECTxTAG" : "INSIGHT_2020",
+				"PROJECTxTAG" : "OPEN_IXIA",
 				"VPCxALPHAxCIDRxBLOCK" : "10.0.0.0/16",
 				"VPCxBRAVOxCIDRxBLOCK" : "192.168.0.0/16",
 				"VPCxINSTANCExTENANCY" : "default",
