@@ -1634,7 +1634,7 @@
       },
         "IxClientSSHKey" : {
         "Description" : "Name of an existing EC2 KeyPair to enable SSH access",
-        "Type" : "AWS::EC2::KeyPair::KeyName",
+        "Type" : "AWS::EC2::KeyPair::KeyName"
       },
         "VMoneInstanceType" : {
         "Description" : "Instance type of VMONE Appliance VM",
