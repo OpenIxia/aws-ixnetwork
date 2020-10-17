@@ -90,13 +90,13 @@
 		}
 	},
 	"Resources": {
-		"KeyPlacementGroup": {
+		"PlacementGroup": {
 			"Type" : "AWS::EC2::PlacementGroup",
 			"Properties" : {
 				"Strategy" : { "Fn::FindInMap" : [ "VariableMap", "global", "PLACEMENTxGROUPxSTRATEGY"] }
 			}
 		},
-		"KeyMgmtSecurityGroup": {
+		"MgmtSecurityGroup": {
 			"Type": "AWS::EC2::SecurityGroup",
 			"Properties": {
 				"GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "MGMT_SECURITY_GROUP", 
@@ -125,23 +125,23 @@
 				]
 			}
 		},
-		"KeyMgmtIngress1": {
+		"MgmtIngress1": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				}
 			}
 		},
-		"KeyMgmtIngress22": {
+		"MgmtIngress22": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -149,11 +149,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress443": {
+		"MgmtIngress443": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 443,
@@ -161,11 +161,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress3389": {
+		"MgmtIngress3389": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 3389,
@@ -173,7 +173,7 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-        "KeyTest1SecurityGroup": {
+        "Test1SecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
                 "GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "TEST1_SECURITY_GROUP", 
@@ -213,19 +213,19 @@
 				]
 			}
 		},
-		"KeyTest1Ingress1": {
+		"Test1Ingress1": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyTest1SecurityGroup"
+					"Ref": "Test1SecurityGroup"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyTest1SecurityGroup"
+					"Ref": "Test1SecurityGroup"
 				}
 			}
 		},
-		"KeyVMOne1Eth0": {
+		VMOne1Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -238,7 +238,7 @@
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Ref" : "VMOne1Eth0PrivateIpAddress" },
@@ -265,7 +265,7 @@
 				]
 			}
 		},
-		"KeyVMOne1Eth1": {
+		VMOne1Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -278,7 +278,7 @@
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", {"Ref" : "VMOne1Eth1PrivateIpAddresses"} ] },
@@ -343,7 +343,7 @@
 				]
 			}
 		},
-		"KeyVMOne1": {
+		VMOne1": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -352,7 +352,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -378,13 +378,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth0"
+							"Ref": VMOne1Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth1"
+							"Ref": VMOne1Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -400,49 +400,49 @@
 				]   
 			}
 		},
-		"KeyVMOne1Eth0ElasticIp": {
+		VMOne1Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyVMOne1"
+				VMOne1"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne1Eth0ElasticIpAssociation": {
+		VMOne1Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne1Eth0ElasticIp",
+						VMOne1Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne1Eth0"
+					"Ref": VMOne1Eth0"
 				}
 			}
 		},
-		"KeyVMOne1Eth1ElasticIp": {
+		VMOne1Eth1ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyVMOne1"
+				VMOne1"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne1Eth1ElasticIpAssociation": {
+		VMOne1Eth1ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne1Eth1ElasticIp",
+						VMOne1Eth1ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne1Eth1"
+					"Ref": VMOne1Eth1"
 				}
 			}
 		}
@@ -597,11 +597,11 @@
       }
     },
 	"Outputs": {
-		"KeyVMOne1": {
+		VMOne1": {
 			"Description": "KEY_VMONE1_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne1",
+					VMOne1",
 					"PrivateIp"
 				]
 			}

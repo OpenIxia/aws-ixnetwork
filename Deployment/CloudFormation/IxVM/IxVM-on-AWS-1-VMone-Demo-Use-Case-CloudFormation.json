@@ -102,13 +102,13 @@
 		}
 	},
 	"Resources": {
-		"KeyPlacementGroup": {
+		"PlacementGroup": {
 			"Type" : "AWS::EC2::PlacementGroup",
 			"Properties" : {
 				"Strategy" : { "Fn::FindInMap" : [ "VariableMap", "global", "PLACEMENTxGROUPxSTRATEGY"] }
 			}
 		},
-		"KeyVpc": {
+		"Vpc": {
 			"Type": "AWS::EC2::VPC",
 			"Properties": {
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "VPCxCIDRxBLOCK"] },
@@ -136,24 +136,24 @@
 				]
 			}
 		},
-		"KeyVpcFlowLog" : {
+		"VpcFlowLog" : {
 			"Type" : "AWS::EC2::FlowLog",
 			"Properties" : {
-				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
+				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["VPCFlowLogAccessRole", "Arn"] },
 				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG", 
 							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
-				"ResourceId" : { "Ref" : "KeyVpc" },
+				"ResourceId" : { "Ref" : "Vpc" },
 				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxRESOURCExTYPE"] },
 				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxTRAFFICxTYPE"] }
 			}
 		},
-		"KeyMgmtSubnet": {
+		"MgmtSubnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ "0", { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "MGMTxSUBNETxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -176,13 +176,13 @@
 				]
 			}
 		},
-		"KeyTest1Subnet": {
+		"Test1Subnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ "0", { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "TEST1xSUBNETxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -205,13 +205,13 @@
 				]
 			}
 		},
-		"KeyMgmtSecurityGroup": {
+		"MgmtSecurityGroup": {
 			"Type": "AWS::EC2::SecurityGroup",
 			"Properties": {
 				"GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "MGMT_SECURITY_GROUP", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -234,11 +234,11 @@
 				]
 			}
 		},
-		"KeyMgmtIngressPing": {		
+		"MgmtIngressPing": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "ICMP",
                 "FromPort": "-1",
@@ -247,23 +247,23 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress1": {
+		"MgmtIngress1": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				}
 			}
 		},
-		"KeyMgmtIngress22": {
+		"MgmtIngress22": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -271,11 +271,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress67": {		
+		"MgmtIngress67": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "UDP port",
                 "FromPort": "67",
@@ -284,11 +284,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 		    }
         },
-		"KeyMgmtIngress80": {		
+		"MgmtIngress80": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "TCP port - for IM(NV)",
                 "FromPort": "80",
@@ -297,11 +297,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress111": {		
+		"MgmtIngress111": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},						
                 "Description": "TCP port",
                 "FromPort": "111",
@@ -312,11 +312,11 @@
 		},
 
 
-		"KeyMgmtIngress123": {		
+		"MgmtIngress123": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "UDP port",
                 "FromPort": "123",
@@ -325,11 +325,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress161": {		
+		"MgmtIngress161": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "UDP port",
                 "FromPort": "161",
@@ -338,11 +338,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress443": {
+		"MgmtIngress443": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 443,
@@ -350,11 +350,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress605": {		
+		"MgmtIngress605": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "UDP port",
                 "FromPort": "605",
@@ -363,11 +363,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress998": {		
+		"MgmtIngress998": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "998",
@@ -376,11 +376,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress1000": {		
+		"MgmtIngress1000": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},      
 				"Description": "UDP port",
                 "FromPort": "1000",
@@ -389,11 +389,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress1080": {		
+		"MgmtIngress1080": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "1080",
@@ -402,11 +402,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress2345": {		
+		"MgmtIngress2345": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "TCP port",
                 "FromPort": "2345",
@@ -415,11 +415,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress2601": {		
+		"MgmtIngress2601": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "2601",
@@ -428,11 +428,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress3222": {		
+		"MgmtIngress3222": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "3222",
@@ -441,11 +441,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress3389": {
+		"MgmtIngress3389": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 3389,
@@ -453,11 +453,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress3601": {		
+		"MgmtIngress3601": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},	
 				"Description": "TCP port",
                 "FromPort": "3601",
@@ -466,11 +466,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress4501": {		
+		"MgmtIngress4501": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "4501",
@@ -479,11 +479,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress4601": {		
+		"MgmtIngress4601": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},	
 				"Description": "TCP port",
                 "FromPort": "4601",
@@ -492,11 +492,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress5285": {		
+		"MgmtIngress5285": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},	
 				"Description": "TCP port",
                 "FromPort": "5285",
@@ -505,11 +505,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress5326": {		
+		"MgmtIngress5326": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},	
 				"Description": "TCP port",
                 "FromPort": "5326",
@@ -518,11 +518,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress5480": {		
+		"MgmtIngress5480": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "5480",
@@ -531,11 +531,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress5488": {		
+		"MgmtIngress5488": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},	
 				"Description": "TCP port",
                 "FromPort": "5488",
@@ -544,11 +544,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress6001": {		
+		"MgmtIngress6001": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "6001",
@@ -557,11 +557,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress6004": {		
+		"MgmtIngress6004": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "UDP port",
                 "FromPort": "6004",
@@ -570,11 +570,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress6665": {		
+		"MgmtIngress6665": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "6665",
@@ -583,11 +583,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress6967": {		
+		"MgmtIngress6967": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "6967",
@@ -596,11 +596,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress6978": {		
+		"MgmtIngress6978": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "6978",
@@ -609,11 +609,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress8021": {		
+		"MgmtIngress8021": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "8021",
@@ -622,11 +622,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress8881": {		
+		"MgmtIngress8881": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "8881",
@@ -635,11 +635,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress8989": {		
+		"MgmtIngress8989": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "8989",
@@ -648,11 +648,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress9101": {		
+		"MgmtIngress9101": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},	
 				"Description": "TCP port",
                 "FromPort": "9101",
@@ -661,11 +661,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress9613": {		
+		"MgmtIngress9613": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "TCP port",
                 "FromPort": "9613",
@@ -674,11 +674,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress10115": {		
+		"MgmtIngress10115": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "TCP port",
                 "FromPort": "10115",
@@ -687,11 +687,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress10116": {		
+		"MgmtIngress10116": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "UDP port",
                 "FromPort": "10116",
@@ -700,11 +700,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress10119": {		
+		"MgmtIngress10119": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "10119",
@@ -713,11 +713,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress17662": {		
+		"MgmtIngress17662": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},	
 				"Description": "TCP port",
                 "FromPort": "17662",
@@ -726,11 +726,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress17668": {		
+		"MgmtIngress17668": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "TCP port",
                 "FromPort": "17668",
@@ -739,11 +739,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress18765": {		
+		"MgmtIngress18765": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "TCP port",
                 "FromPort": "18765",
@@ -752,11 +752,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress21123": {		
+		"MgmtIngress21123": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"Description": "TCP port",
                 "FromPort": "21123",
@@ -765,11 +765,11 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-		"KeyMgmtIngress21653": {		
+		"MgmtIngress21653": {		
  			"Type": "AWS::EC2::SecurityGroupIngress",                   
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
                 "Description": "TCP port",
                 "FromPort": "21653",
@@ -778,13 +778,13 @@
                 "CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
         },
-        "KeyTest1SecurityGroup": {
+        "Test1SecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
                 "GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "TEST1_SECURITY_GROUP", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
                 "VpcId": {
-                    "Ref": "KeyVpc"
+                    "Ref": "Vpc"
                 },
                 "SecurityGroupIngress": [
                     {
@@ -818,24 +818,24 @@
 				]
 			}
 		},
-		"KeyTest1Ingress1": {
+		"Test1Ingress1": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyTest1SecurityGroup"
+					"Ref": "Test1SecurityGroup"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyTest1SecurityGroup"
+					"Ref": "Test1SecurityGroup"
 				}
 			}
 		},
 		"KeyDefaultEgress1": {
 			"Type" : "AWS::EC2::SecurityGroupEgress",
 			"Properties" : {
-				"GroupId": { "Fn::GetAtt" : ["KeyVpc", "DefaultSecurityGroup"] },
+				"GroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] },
 				"IpProtocol": "-1",
-				"SourceSecurityGroupId": { "Fn::GetAtt" : ["KeyVpc", "DefaultSecurityGroup"] }
+				"SourceSecurityGroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] }
 			}
 		},
 		"KeyInternetGw": {
@@ -862,35 +862,35 @@
 				]
 			}
 		},
-		"KeyGwAttach": {
+		"GwAttach": {
 			"Type": "AWS::EC2::VPCGatewayAttachment",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"InternetGatewayId": {
 					"Ref": "KeyInternetGw"
 				}
 			}
 		},
-		"KeyMgmtRoute": {
+		"MgmtRoute": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTable"
+					"Ref": "MgmtRouteTable"
 				},
 				"GatewayId": {
 					"Ref": "KeyInternetGw"
 				}
 			},
-			"DependsOn": "KeyGwAttach"
+			"DependsOn": "GwAttach"
 		},
-		"KeyMgmtRouteTable": {
+		"MgmtRouteTable": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -913,24 +913,24 @@
 				]
 			}
 		},
-		"KeyTest1Route": {
+		"Test1Route": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTable"
+					"Ref": "Test1RouteTable"
 				},
 				"GatewayId": {
 					"Ref": "KeyInternetGw"
 				}
 			},
-			"DependsOn": "KeyGwAttach"
+			"DependsOn": "GwAttach"
 		},		
-		"KeyTest1RouteTable": {
+		"Test1RouteTable": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -953,29 +953,29 @@
 				]
 			}
 		},
-		"KeyMgmtSubnetRouteTableAssociation": {
+		"MgmtSubnetRouteTableAssociation": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTable"
+					"Ref": "MgmtRouteTable"
 				},
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				}
 			}
 		},
-		"KeyTest1SubnetRouteTableAssociation": {
+		"Test1SubnetRouteTableAssociation": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTable"
+					"Ref": "Test1RouteTable"
 				},
 				"SubnetId": {
-					"Ref": "KeyTest1Subnet"
+					"Ref": "Test1Subnet"
 				}
 			}
 		},
-		"KeyVMOne1Eth0": {
+		VMOne1Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -984,11 +984,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE1xETH0xPRIVATExIPxADDRESS"] },
@@ -1015,7 +1015,7 @@
 				]
 			}
 		},
-		"KeyVMOne1Eth1": {
+		VMOne1Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1024,11 +1024,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1Subnet"
+					"Ref": "Test1Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE1xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1093,7 +1093,7 @@
 				]
 			}
 		},
-		"KeyVMOne1": {
+		VMOne1": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1102,7 +1102,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -1128,13 +1128,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth0"
+							"Ref": VMOne1Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth1"
+							"Ref": VMOne1Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1150,31 +1150,31 @@
 				]   
 			}
 		},
-		"KeyVMOne1Eth0ElasticIp": {
+		VMOne1Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne1"
+				"GwAttach",
+				VMOne1"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne1Eth0ElasticIpAssociation": {
+		VMOne1Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne1Eth0ElasticIp",
+						VMOne1Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne1Eth0"
+					"Ref": VMOne1Eth0"
 				}
 			}
 		},
-		"KeyVPCFlowLogAccessRole": {
+		"VPCFlowLogAccessRole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
                     "Statement": [
@@ -1295,11 +1295,11 @@
       }
     },
 	"Outputs": {
-		"KeyVMOne1": {
+		VMOne1": {
 			"Description": "KEY_VMONE1_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne1",
+					VMOne1",
 					"PrivateIp"
 				]
 			}
