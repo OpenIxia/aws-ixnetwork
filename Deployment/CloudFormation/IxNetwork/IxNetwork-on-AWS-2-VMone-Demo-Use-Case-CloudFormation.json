@@ -1268,7 +1268,7 @@
     },
     "Parameters" : {
         "UserEmailTag" : {
-        "Description" : "Email address tag of user creating the stack",
+		"Description" : "Email address tag of user creating the stack",
         "MinLength": "14",
         "Type" : "String"
       },
