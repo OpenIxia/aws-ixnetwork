@@ -583,7 +583,7 @@
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
 				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
-				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
+				"IamInstanceProfile": { "Ref": "EC2InstanceProfile" },				
 				"Tags": [
 					{
 						"Key": "Name",
@@ -641,7 +641,7 @@
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
 				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
-				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
+				"IamInstanceProfile": { "Ref": "EC2InstanceProfile" },				
 				"Tags": [
 					{
 						"Key": "Name",
@@ -813,18 +813,18 @@
 				}
 			}
 		},
-        "KeyEC2InstanceProfile": {
+        "EC2InstanceProfile": {
             "Properties": {
                 "Path": "/",
                 "Roles": [
                     {
-                        "Ref": "KeyEC2ReadOnlyAccessRole"
+                        "Ref": "EC2ReadOnlyAccessRole"
                     }
                 ]
             },
             "Type": "AWS::IAM::InstanceProfile"
         },
-		"KeyEC2ReadOnlyAccessRole": {
+		"EC2ReadOnlyAccessRole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
                     "Statement": [

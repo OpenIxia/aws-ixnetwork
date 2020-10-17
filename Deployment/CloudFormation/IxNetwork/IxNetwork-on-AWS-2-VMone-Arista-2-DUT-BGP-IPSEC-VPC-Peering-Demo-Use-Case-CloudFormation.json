@@ -262,7 +262,7 @@
 		"VpcFlowLogAlpha" : {
 			"Type" : "AWS::EC2::FlowLog",
 			"Properties" : {
-				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
+				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["VPCFlowLogAccessRole", "Arn"] },
 				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG_ALPHA", 
 							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"ResourceId" : { "Ref" : "VpcAlpha" },
@@ -388,7 +388,7 @@
 		"VpcFlowLogBravo" : {
 			"Type" : "AWS::EC2::FlowLog",
 			"Properties" : {
-				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
+				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["VPCFlowLogAccessRole", "Arn"] },
 				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG_BRAVO", 
 							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"ResourceId" : { "Ref" : "VpcBravo" },
@@ -875,12 +875,12 @@
 					"Ref" : "MgmtRouteTableAlpha" 
 				},
                 "VpcPeeringConnectionId" : { 
-					"Ref" : "KeyVPCPeeringConnection" 
+					"Ref" : "VPCPeeringConnection" 
 				}
             },
 			"DependsOn": [
 				"MgmtRouteTableAlpha",
-				"KeyVPCPeeringConnection"
+				"VPCPeeringConnection"
 			]			
         },
 		"MgmtRouteTableAlpha": {
@@ -934,12 +934,12 @@
 					"Ref" : "Test1RouteTableAlpha" 
 				},
                 "VpcPeeringConnectionId" : { 
-					"Ref" : "KeyVPCPeeringConnection" 
+					"Ref" : "VPCPeeringConnection" 
 				}
             },
 			"DependsOn": [
 				"Test1RouteTableAlpha",
-				"KeyVPCPeeringConnection"
+				"VPCPeeringConnection"
 			]				
         },				
 		"Test1RouteTableAlpha": {
@@ -1063,12 +1063,12 @@
 					"Ref" : "MgmtRouteTableBravo" 
 				},
                 "VpcPeeringConnectionId" : { 
-					"Ref" : "KeyVPCPeeringConnection" 
+					"Ref" : "VPCPeeringConnection" 
 				}
             },
 			"DependsOn": [
 				"MgmtRouteTableBravo",
-				"KeyVPCPeeringConnection"
+				"VPCPeeringConnection"
 			]				
         },		
 		"MgmtRouteTableBravo": {
@@ -1122,12 +1122,12 @@
 					"Ref" : "Test1RouteTableBravo" 
 				},
                 "VpcPeeringConnectionId" : { 
-					"Ref" : "KeyVPCPeeringConnection" 
+					"Ref" : "VPCPeeringConnection" 
 				}
             },
 			"DependsOn": [
 				"Test1RouteTableBravo",
-				"KeyVPCPeeringConnection"
+				"VPCPeeringConnection"
 			]				
         },			
 		"Test1RouteTableBravo": {
@@ -2788,7 +2788,7 @@
 				"KeyCloudServer"
 			]	
 		},	
-		"KeyVPCPeeringConnection": {
+		"VPCPeeringConnection": {
 			"Type": "AWS::EC2::VPCPeeringConnection",
 			"Properties": {
 				"VpcId": {"Ref": "VpcAlpha"},
@@ -2815,18 +2815,18 @@
 				]
 			}
         },
-        "KeyEC2InstanceProfile": {
+        "EC2InstanceProfile": {
             "Properties": {
                 "Path": "/",
                 "Roles": [
                     {
-                        "Ref": "KeyEC2ReadOnlyAccessRole"
+                        "Ref": "EC2ReadOnlyAccessRole"
                     }
                 ]
             },
             "Type": "AWS::IAM::InstanceProfile"
         },
-		"KeyEC2ReadOnlyAccessRole": {
+		"EC2ReadOnlyAccessRole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
                     "Statement": [
@@ -2847,7 +2847,7 @@
             },
             "Type": "AWS::IAM::Role"
         },
-		"KeyVPCFlowLogAccessRole": {
+		"VPCFlowLogAccessRole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
                     "Statement": [
