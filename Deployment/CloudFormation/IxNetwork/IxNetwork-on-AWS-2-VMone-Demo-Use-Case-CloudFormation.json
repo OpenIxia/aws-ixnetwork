@@ -132,8 +132,8 @@
 		},
 		"VariableMap" : {
 			"global" : {
-				"OPTIONSxTAG" : "Optional-Options-Tag",
-				"PROJECTxTAG" : "Optional-Project-Tag",
+				"OPTIONSxTAG" : "MANUAL",
+				"PROJECTxTAG" : "OPEN_IXIA",
 				"VPCxCIDRxBLOCK" : "10.0.0.0/16",
 				"VPCxINSTANCExTENANCY" : "default",
 				"VPCxENABLExDNSxSUPPORT" : true,

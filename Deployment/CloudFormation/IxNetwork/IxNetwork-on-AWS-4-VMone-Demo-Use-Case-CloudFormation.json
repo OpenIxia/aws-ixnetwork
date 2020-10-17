@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "Insight 2020 IxNetwork on AWS 4-VMone Test CloudFormation",
+	"Description": "IxNetwork on AWS 4-VMone Test CloudFormation",
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
