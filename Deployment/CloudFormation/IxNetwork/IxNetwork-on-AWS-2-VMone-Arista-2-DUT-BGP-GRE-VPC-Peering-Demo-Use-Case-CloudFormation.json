@@ -173,7 +173,7 @@
 				"INSTANCExEBSxDELETExONxTERMINATION" : true,
 				"INSTANCExEBSxVOLUMExTYPE" : "gp2",
 				"APPxTAG" : "IXNETWORK",
-				"APPxVERSION" : "9.00.1915.16"
+				"APPxVERSION" : "9.10"
 			},
 			"local" : {
 				"CLIENTxIMGxSIZE" : "70",
@@ -1038,7 +1038,7 @@
 				}
 			}
 		},
-		"KeyIxiaClientEth0": {
+		"IxiaClientEth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1427,7 +1427,7 @@
 				]
 			}
 		},
-		"KeyIxiaClient": {
+		"IxiaClient": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1462,7 +1462,7 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyIxiaClientEth0"
+							"Ref": "IxiaClientEth0"
 						},
 						"DeviceIndex": "0"
 					}
@@ -1783,7 +1783,7 @@
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
 				"GwAttachAlpha",
-				"KeyIxiaClient"
+				"IxiaClient"
 			],
 			"Properties": {
 				"Domain": "vpc"
@@ -1799,7 +1799,7 @@
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyIxiaClientEth0"
+					"Ref": "IxiaClientEth0"
 				}
 			}
 		},
@@ -2130,7 +2130,7 @@
 				]
 			}
 		},
-		"KeyIxiaClient": {
+		"IxiaClient": {
 			"Description": "KEY_IXIA_CLIENT_PUBLIC_DNS_NAME",
 			"Value": {
 				"Fn::Join": [
@@ -2139,7 +2139,7 @@
 						"https://",
 						{
 							"Fn::GetAtt": [
-								"KeyIxiaClient",
+								"IxiaClient",
 								"PublicDnsName"
 							]
 						}
