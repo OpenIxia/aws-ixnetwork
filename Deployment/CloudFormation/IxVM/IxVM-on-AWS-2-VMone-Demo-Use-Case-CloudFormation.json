@@ -4,109 +4,109 @@
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
-				"AMIxVMONE" : "ami-0b00ea407a5ce19b1",
+				"AMIxVMONE" : "ami-0509380307fa85b52",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "US East (N. Virginia)",
 				"REGIONxTAG" : "US_EAST_1"
 			},
 			"us-east-2" : {
-				"AMIxVMONE" : "ami-07cb7aa9ac8bc6d15",
+				"AMIxVMONE" : "ami-00e0c4f41a087e1c4",
 				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
 				"EC2xREGION" : "US East (Ohio)",
 				"REGIONxTAG" : "US_EAST_2"
 			},
 			"us-west-1" : {
-				"AMIxVMONE" : "ami-0878855f57776ab2a",
+				"AMIxVMONE" : "ami-0afbffbde477a719a",
 				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
 				"EC2xREGION" : "US West (N. California)",
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxVMONE" : "ami-028d4579e0063447f",
+				"AMIxVMONE" : "ami-0df1e12abf4a2c135",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
 				"REGIONxTAG" : "US_WEST_2"
 			},
 			"ap-east-1" : {
-				"AMIxVMONE" : "ami-a794eed6",
+				"AMIxVMONE" : "ami-02fa881ddb49257fc",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
 				"REGIONxTAG" : "AP_EAST_1"
 			},
 			"ap-south-1" : {
-				"AMIxVMONE" : "ami-09760acbd7f44fb7a",
+				"AMIxVMONE" : "ami-0c3d4d5fbc64f9d1c",
 				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
 				"EC2xREGION" : "Asia Pacific (Mumbai)",
 				"REGIONxTAG" : "AP_SOUTH_1"
 			},
 			"ap-northeast-2" : {
-				"AMIxVMONE" : "ami-0f3a746be4a556c48",
+				"AMIxVMONE" : "ami-0c052330f9acf8db3",
 				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
 				"EC2xREGION" : "Asia Pacific (Seoul)",
 				"REGIONxTAG" : "AP_NORTHEAST_2"
 			},
 			"ap-southeast-1" : {
-				"AMIxVMONE" : "ami-0718d39a7db41a331",
+				"AMIxVMONE" : "ami-059e50c48b8bcdfa9",
 				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
 				"EC2xREGION" : "Asia Pacific (Singapore)",
 				"REGIONxTAG" : "AP_SOUTHEAST_1"
 			},
 			"ap-southeast-2" : {
-				"AMIxVMONE" : "ami-0928e2f36d1ea6f57",
+				"AMIxVMONE" : "ami-018243bffd7f39b11",
 				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
 				"EC2xREGION" : "Asia Pacific (Sydney)",
 				"REGIONxTAG" : "AP_SOUTHEAST_2"
 			},
 			"ap-northeast-1" : {
-				"AMIxVMONE" : "ami-0d3e2d4e42fd930e6",
+				"AMIxVMONE" : "ami-0e12b7d14cb3f757c",
 				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
 				"EC2xREGION" : "Asia Pacific (Tokyo)",
 				"REGIONxTAG" : "AP_NORTHEAST_1"
 			},
 			"ca-central-1" : {
-				"AMIxVMONE" : "ami-0592ae713210c3ba5",
+				"AMIxVMONE" : "ami-025a8c8b2c2601600",
 				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
 				"EC2xREGION" : "Canada (Central)",
 				"REGIONxTAG" : "CA_CENTRAL_1"
 			},
 			"eu-central-1" : {
-				"AMIxVMONE" : "ami-00445a890be8b626c",
+				"AMIxVMONE" : "ami-0a9e966690de4c81e",
 				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
 				"EC2xREGION" : "EU (Frankfurt)",
 				"REGIONxTAG" : "EU_CENTRAL_1"
 			},
 			"eu-west-1" : {
-				"AMIxVMONE" : "ami-08e0469fdc7dcef91",
+				"AMIxVMONE" : "ami-0cddb24c65c3c606a",
 				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
 				"EC2xREGION" : "EU (Ireland)",
 				"REGIONxTAG" : "EU_WEST_1"
 			},
 			"eu-west-2" : {
-				"AMIxVMONE" : "ami-0381ff044ceb1761d",
+				"AMIxVMONE" : "ami-0e7d5e1c20f609ad8",
 				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
 				"EC2xREGION" : "EU (London)",
 				"REGIONxTAG" : "EU_WEST_2"
 			},
 			"eu-west-3" : {
-				"AMIxVMONE" : "ami-0b41ffb2ddf330ee3",
+				"AMIxVMONE" : "ami-08540c45994d22f7c",
 				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
 				"EC2xREGION" : "EU (Paris)",
 				"REGIONxTAG" : "EU_WEST_3"
 			},
 			"eu-north-1" : {
-				"AMIxVMONE" : "ami-078fc9340da9537e9",
+				"AMIxVMONE" : "ami-0fe5a2bbac9044118",
 				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
 				"EC2xREGION" : "EU (Stockholm)",
 				"REGIONxTAG" : "EU_NORTH_1"
 			},
 			"me-south-1" : {
-				"AMIxVMONE" : "ami-083788bc5cd064160",
+				"AMIxVMONE" : "ami-09e4efb6c7cd43117",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "Middle East (Bahrain)",		
 				"REGIONxTAG" : "ME_SOUTH_1"
 			},
 			"sa-east-1" : {
-				"AMIxVMONE" : "ami-0c2513eebf87a5339",
+				"AMIxVMONE" : "ami-0f7985248fff5e48a",
 				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
 				"EC2xREGION" : "South America (Sao Paulo)",
 				"REGIONxTAG" : "SA_EAST_1"
@@ -135,7 +135,7 @@
 				"INSTANCExEBSxDELETExONxTERMINATION" : true,
 				"INSTANCExEBSxVOLUMExTYPE" : "gp2",
 				"APPxTAG" : "IXIA",
-				"APPxVERSION" : "9.00.1900.10"
+				"APPxVERSION" : "9.10"
 			},
 			"local" : {
 				"VMONE1xETH0xPRIVATExIPxADDRESS" : "10.0.10.11",
@@ -915,7 +915,7 @@
 				}
 			}
 		},
-		"KeyDefaultEgress1": {
+		"DefaultEgress1": {
 			"Type" : "AWS::EC2::SecurityGroupEgress",
 			"Properties" : {
 				"GroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] },
@@ -923,7 +923,7 @@
 				"SourceSecurityGroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] }
 			}
 		},
-		"KeyInternetGw": {
+		"InternetGw": {
 			"Type": "AWS::EC2::InternetGateway",
 			"Properties": {
 				"Tags": [
@@ -954,7 +954,7 @@
 					"Ref": "Vpc"
 				},
 				"InternetGatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			}
 		},
@@ -966,7 +966,7 @@
 					"Ref": "MgmtRouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
 			"DependsOn": "GwAttach"
@@ -1006,7 +1006,7 @@
 					"Ref": "Test1RouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
 			"DependsOn": "GwAttach"
@@ -1046,7 +1046,7 @@
 					"Ref": "Test2RouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
 			"DependsOn": "GwAttach"
@@ -1111,7 +1111,7 @@
 				}
 			}
 		},
-		VMOne1Eth0": {
+		"VMOne1Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1151,7 +1151,7 @@
 				]
 			}
 		},
-		VMOne1Eth1": {
+		"VMOne1Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1229,7 +1229,7 @@
 				]
 			}
 		},        
-		VMOne2Eth0": {
+		"VMOne2Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1269,7 +1269,7 @@
 				]
 			}
 		},
-		VMOne2Eth1": {
+		"VMOne2Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1347,7 +1347,7 @@
 				]
 			}
 		},
-		VMOne1": {
+		"VMOne1": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1383,13 +1383,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": VMOne1Eth0"
+							"Ref": "VMOne1Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": VMOne1Eth1"
+							"Ref": "VMOne1Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1405,7 +1405,7 @@
 				]   
 			}
 		},
-		VMOne2": {
+		"VMOne2": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1441,13 +1441,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": VMOne2Eth0"
+							"Ref": "VMOne2Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": VMOne2Eth1"
+							"Ref": "VMOne2Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1463,51 +1463,51 @@
 				]   
 			}
 		},
-		VMOne1Eth0ElasticIp": {
+		"VMOne1Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
 				"GwAttach",
-				VMOne1"
+				"VMOne1"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		VMOne1Eth0ElasticIpAssociation": {
+		"VMOne1Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						VMOne1Eth0ElasticIp",
+						"VMOne1Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": VMOne1Eth0"
+					"Ref": "VMOne1Eth0"
 				}
 			}
 		},
-		VMOne2Eth0ElasticIp": {
+		"VMOne2Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
 				"GwAttach",
-				VMOne2"
+				"VMOne2"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		VMOne2Eth0ElasticIpAssociation": {
+		"VMOne2Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						VMOne2Eth0ElasticIp",
+						"VMOne2Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": VMOne2Eth0"
+					"Ref": "VMOne2Eth0"
 				}
 			}
 		},
@@ -1623,12 +1623,12 @@
     },
     "Parameters" : {
         "UserEmailTag" : {
-        "Description" : "Email address tag of user creating the stack",
+		"Description" : "Email address tag of user creating the stack",
         "MinLength": "14",
         "Type" : "String"
       },
         "UserLoginTag" : {
-        "Description" : "Domain Login ID tag of user creating the stack",
+        "Description" : "Login ID tag of user creating the stack",
         "MinLength": "4",
         "Type" : "String"
       },
@@ -1657,20 +1657,20 @@
       }
     },
 	"Outputs": {
-		VMOne1": {
+		"VMOne1": {
 			"Description": "KEY_VMONE1_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					VMOne1",
+					"VMOne1",
 					"PrivateIp"
 				]
 			}
 		},
-		VMOne2": {
+		"VMOne2": {
 			"Description": "KEY_VMONE2_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					VMOne2",
+					"VMOne2",
 					"PrivateIp"
 				]
 			}

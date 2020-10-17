@@ -4,71 +4,111 @@
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
-				"AMIxVMONE" : "ami-0b49db69ff0cf8c48",
+				"AMIxVMONE" : "ami-0509380307fa85b52",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "US East (N. Virginia)",
 				"REGIONxTAG" : "US_EAST_1"
 			},
 			"us-east-2" : {
-				"AMIxVMONE" : "ami-0b35fadcad7bebddc",
+				"AMIxVMONE" : "ami-00e0c4f41a087e1c4",
+				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
+				"EC2xREGION" : "US East (Ohio)",
 				"REGIONxTAG" : "US_EAST_2"
 			},
 			"us-west-1" : {
-				"AMIxVMONE" : "ami-056acba46640b2770",
+				"AMIxVMONE" : "ami-0afbffbde477a719a",
+				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
+				"EC2xREGION" : "US West (N. California)",
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxVMONE" : "ami-01ab99188be4d2dd7",
+				"AMIxVMONE" : "ami-0df1e12abf4a2c135",
+				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
+				"EC2xREGION" : "US West (Oregon)",
 				"REGIONxTAG" : "US_WEST_2"
 			},
 			"ap-east-1" : {
-				"AMIxVMONE" : "ami-00000000000000000",
+				"AMIxVMONE" : "ami-02fa881ddb49257fc",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
 				"REGIONxTAG" : "AP_EAST_1"
 			},
 			"ap-south-1" : {
-				"AMIxVMONE" : "ami-025e42b5bb224fc75",
+				"AMIxVMONE" : "ami-0c3d4d5fbc64f9d1c",
+				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
+				"EC2xREGION" : "Asia Pacific (Mumbai)",
 				"REGIONxTAG" : "AP_SOUTH_1"
 			},
 			"ap-northeast-2" : {
-				"AMIxVMONE" : "ami-0de8255128d8bfb0d",
+				"AMIxVMONE" : "ami-0c052330f9acf8db3",
+				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
+				"EC2xREGION" : "Asia Pacific (Seoul)",
 				"REGIONxTAG" : "AP_NORTHEAST_2"
 			},
 			"ap-southeast-1" : {
-				"AMIxVMONE" : "ami-089f1f5b917372662",
+				"AMIxVMONE" : "ami-059e50c48b8bcdfa9",
+				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
+				"EC2xREGION" : "Asia Pacific (Singapore)",
 				"REGIONxTAG" : "AP_SOUTHEAST_1"
 			},
 			"ap-southeast-2" : {
-				"AMIxVMONE" : "ami-0299e74875b501d40",
+				"AMIxVMONE" : "ami-018243bffd7f39b11",
+				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
+				"EC2xREGION" : "Asia Pacific (Sydney)",
 				"REGIONxTAG" : "AP_SOUTHEAST_2"
 			},
 			"ap-northeast-1" : {
-				"AMIxVMONE" : "ami-0e348bfd81d0f6e89",
+				"AMIxVMONE" : "ami-0e12b7d14cb3f757c",
+				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
+				"EC2xREGION" : "Asia Pacific (Tokyo)",
 				"REGIONxTAG" : "AP_NORTHEAST_1"
 			},
 			"ca-central-1" : {
-				"AMIxVMONE" : "ami-06c65b45012cef27c",
+				"AMIxVMONE" : "ami-025a8c8b2c2601600",
+				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
+				"EC2xREGION" : "Canada (Central)",
 				"REGIONxTAG" : "CA_CENTRAL_1"
 			},
 			"eu-central-1" : {
-				"AMIxVMONE" : "ami-08b741b0d11c010db",
+				"AMIxVMONE" : "ami-0a9e966690de4c81e",
+				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
+				"EC2xREGION" : "EU (Frankfurt)",
 				"REGIONxTAG" : "EU_CENTRAL_1"
 			},
 			"eu-west-1" : {
-				"AMIxVMONE" : "ami-08a630a04e6f779ad",
+				"AMIxVMONE" : "ami-0cddb24c65c3c606a",
+				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
+				"EC2xREGION" : "EU (Ireland)",
 				"REGIONxTAG" : "EU_WEST_1"
 			},
 			"eu-west-2" : {
-				"AMIxVMONE" : "ami-052d84d8d47c97f09",
+				"AMIxVMONE" : "ami-0e7d5e1c20f609ad8",
+				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
+				"EC2xREGION" : "EU (London)",
 				"REGIONxTAG" : "EU_WEST_2"
 			},
 			"eu-west-3" : {
-				"AMIxVMONE" : "ami-035790b3bd0004637",
+				"AMIxVMONE" : "ami-08540c45994d22f7c",
+				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
+				"EC2xREGION" : "EU (Paris)",
 				"REGIONxTAG" : "EU_WEST_3"
 			},
 			"eu-north-1" : {
-				"AMIxVMONE" : "ami-00000000000000000",
+				"AMIxVMONE" : "ami-0fe5a2bbac9044118",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "EU (Stockholm)",
 				"REGIONxTAG" : "EU_NORTH_1"
 			},
+			"me-south-1" : {
+				"AMIxVMONE" : "ami-09e4efb6c7cd43117",
+				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
+				"EC2xREGION" : "Middle East (Bahrain)",		
+				"REGIONxTAG" : "ME_SOUTH_1"
+			},
 			"sa-east-1" : {
-				"AMIxVMONE" : "ami-056fff9b4d563f708",
+				"AMIxVMONE" : "ami-0f7985248fff5e48a",
+				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
+				"EC2xREGION" : "South America (Sao Paulo)",
 				"REGIONxTAG" : "SA_EAST_1"
 			}
 		},
@@ -78,11 +118,12 @@
 				"PROJECTxTAG" : "OPEN_IXIA",
 				"VPCxCIDRxBLOCK" : "10.0.0.0/16",
 				"VPCxINSTANCExTENANCY" : "default",
-				"VPCxENABLExDNSxSUPPORT" : "true",
-				"VPCxENABLExDNSxHOSTNAMES" : "true",
+				"VPCxENABLExDNSxSUPPORT" : true,
+				"VPCxENABLExDNSxHOSTNAMES" : true,
 				"PLACEMENTxGROUPxSTRATEGY" : "cluster",
 				"FLOWxLOGxRESOURCExTYPE" : "VPC",
 				"FLOWxLOGxTRAFFICxTYPE" : "REJECT",
+				"SUBNETxAVAILABILITYxZONExINDEX" : "0",
 				"MGMTxSUBNETxCIDRxBLOCK" : "10.0.10.0/24",
 				"TEST1xSUBNETxCIDRxBLOCK" : "10.0.2.0/24",
 				"INTERFACExSOURCExDESTxCHECK" : false,
@@ -93,7 +134,7 @@
 				"INSTANCExEBSxDELETExONxTERMINATION" : true,
 				"INSTANCExEBSxVOLUMExTYPE" : "gp2",
 				"APPxTAG" : "IXIA",
-				"APPxVERSION" : "9.00"
+				"APPxVERSION" : "9.10"
 			},
 			"local" : {
 				"VMONE1xETH0xPRIVATExIPxADDRESS" : "10.0.10.11",
@@ -150,7 +191,7 @@
 		"MgmtSubnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
-				"AvailabilityZone": { "Fn::Select" : [ "0", { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "MGMTxSUBNETxCIDRxBLOCK"] },
 				"VpcId": {
 					"Ref": "Vpc"
@@ -179,7 +220,7 @@
 		"Test1Subnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
-				"AvailabilityZone": { "Fn::Select" : [ "0", { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "TEST1xSUBNETxCIDRxBLOCK"] },
 				"VpcId": {
 					"Ref": "Vpc"
@@ -830,7 +871,7 @@
 				}
 			}
 		},
-		"KeyDefaultEgress1": {
+		"DefaultEgress1": {
 			"Type" : "AWS::EC2::SecurityGroupEgress",
 			"Properties" : {
 				"GroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] },
@@ -838,7 +879,7 @@
 				"SourceSecurityGroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] }
 			}
 		},
-		"KeyInternetGw": {
+		"InternetGw": {
 			"Type": "AWS::EC2::InternetGateway",
 			"Properties": {
 				"Tags": [
@@ -869,7 +910,7 @@
 					"Ref": "Vpc"
 				},
 				"InternetGatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			}
 		},
@@ -881,7 +922,7 @@
 					"Ref": "MgmtRouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
 			"DependsOn": "GwAttach"
@@ -921,7 +962,7 @@
 					"Ref": "Test1RouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
 			"DependsOn": "GwAttach"
@@ -975,7 +1016,7 @@
 				}
 			}
 		},
-		VMOne1Eth0": {
+		"VMOne1Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1015,7 +1056,7 @@
 				]
 			}
 		},
-		VMOne1Eth1": {
+		"VMOne1Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1093,7 +1134,7 @@
 				]
 			}
 		},
-		VMOne1": {
+		"VMOne1": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1103,6 +1144,7 @@
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
 				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
+				"IamInstanceProfile": { "Ref": "EC2InstanceProfile" },				
 				"Tags": [
 					{
 						"Key": "Name",
@@ -1128,13 +1170,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": VMOne1Eth0"
+							"Ref": "VMOne1Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": VMOne1Eth1"
+							"Ref": "VMOne1Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1150,30 +1192,62 @@
 				]   
 			}
 		},
-		VMOne1Eth0ElasticIp": {
+		"VMOne1Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
 				"GwAttach",
-				VMOne1"
+				"VMOne1"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		VMOne1Eth0ElasticIpAssociation": {
+		"VMOne1Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						VMOne1Eth0ElasticIp",
+						"VMOne1Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": VMOne1Eth0"
+					"Ref": "VMOne1Eth0"
 				}
 			}
 		},
+        "EC2InstanceProfile": {
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "EC2ReadOnlyAccessRole"
+                    }
+                ]
+            },
+            "Type": "AWS::IAM::InstanceProfile"
+        },
+		"EC2ReadOnlyAccessRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": "sts:AssumeRole",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "ec2.amazonaws.com"
+                            }
+                        }
+                    ],
+                    "Version": "2012-10-17"
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+                ],
+                "Path": "/"
+            },
+            "Type": "AWS::IAM::Role"
+        },
 		"VPCFlowLogAccessRole": {
             "Properties": {
                 "AssumeRolePolicyDocument": {
@@ -1254,12 +1328,12 @@
     },
     "Parameters" : {
         "UserEmailTag" : {
-        "Description" : "Email address tag of user creating the stack",
+		"Description" : "Email address tag of user creating the stack",
         "MinLength": "14",
         "Type" : "String"
       },
         "UserLoginTag" : {
-        "Description" : "Domain Login ID tag of user creating the stack",
+        "Description" : "Login ID tag of user creating the stack",
         "MinLength": "4",
         "Type" : "String"
       },
@@ -1271,19 +1345,12 @@
         "Description" : "Instance type of VMONE Appliance VM",
         "Type" : "String",
         "AllowedValues": [
-			"c5.18xlarge",		
-			"c5.9xlarge",
-			"c5.4xlarge",
-			"c5.2xlarge",
-			"c5.xlarge",
-			"c5.large",
-			"c4.8xlarge",
-			"c4.4xlarge",
-			"c4.2xlarge",
-			"c4.xlarge",
-			"c4.large"
+			"c5n.18xlarge",
+			"c5n.9xlarge",
+			"c5n.xlarge",
+			"c5.xlarge"
         ],
-        "Default" : "c4.4xlarge"
+        "Default" : "c5n.xlarge"
       },
         "InboundIPv4CidrBlock" : {
         "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
@@ -1295,11 +1362,11 @@
       }
     },
 	"Outputs": {
-		VMOne1": {
+		"VMOne1": {
 			"Description": "KEY_VMONE1_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					VMOne1",
+					"VMOne1",
 					"PrivateIp"
 				]
 			}
