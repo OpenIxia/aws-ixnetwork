@@ -190,19 +190,19 @@
 		}
 	},
 	"Resources": {
-		"KeyPlacementGroupAlpha": {
+		"PlacementGroupAlpha": {
 			"Type" : "AWS::EC2::PlacementGroup",
 			"Properties" : {
 				"Strategy" : { "Fn::FindInMap" : [ "VariableMap", "global", "PLACEMENTxGROUPxSTRATEGY"] }
 			}
 		},
-		"KeyPlacementGroupBravo": {
+		"PlacementGroupBravo": {
 			"Type" : "AWS::EC2::PlacementGroup",
 			"Properties" : {
 				"Strategy" : { "Fn::FindInMap" : [ "VariableMap", "global", "PLACEMENTxGROUPxSTRATEGY"] }
 			}
 		},		
-		"KeyVpcAlpha": {
+		"VpcAlpha": {
 			"Type": "AWS::EC2::VPC",
 			"Properties": {
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "VPCxALPHAxCIDRxBLOCK"] },
@@ -230,24 +230,24 @@
 				]
 			}
 		},
-		"KeyVpcFlowLogAlpha" : {
+		"VpcFlowLogAlpha" : {
 			"Type" : "AWS::EC2::FlowLog",
 			"Properties" : {
 				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
 				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG_ALPHA", 
 							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
-				"ResourceId" : { "Ref" : "KeyVpcAlpha" },
+				"ResourceId" : { "Ref" : "VpcAlpha" },
 				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxRESOURCExTYPE"] },
 				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxTRAFFICxTYPE"] }
 			}
 		},
-		"KeyMgmtSubnetAlpha": {
+		"MgmtSubnetAlpha": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "MGMTxSUBNETxALPHAxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpcAlpha"
+					"Ref": "VpcAlpha"
 				},
 				"Tags": [
 					{
@@ -270,13 +270,13 @@
 				]
 			}
 		},
-		"KeyTest1SubnetAlpha": {
+		"Test1SubnetAlpha": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "TEST1xSUBNETxALPHAxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpcAlpha"
+					"Ref": "VpcAlpha"
 				},
 				"Tags": [
 					{
@@ -299,7 +299,7 @@
 				]
 			}
 		},
-		"KeyVpcBravo": {
+		"VpcBravo": {
 			"Type": "AWS::EC2::VPC",
 			"Properties": {
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "VPCxBRAVOxCIDRxBLOCK"] },
@@ -327,24 +327,24 @@
 				]
 			}
 		},
-		"KeyVpcFlowLogBravo" : {
+		"VpcFlowLogBravo" : {
 			"Type" : "AWS::EC2::FlowLog",
 			"Properties" : {
 				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
 				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG_BRAVO", 
 							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
-				"ResourceId" : { "Ref" : "KeyVpcBravo" },
+				"ResourceId" : { "Ref" : "VpcBravo" },
 				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxRESOURCExTYPE"] },
 				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxTRAFFICxTYPE"] }
 			}
 		},	
-		"KeyMgmtSubnetBravo": {
+		"MgmtSubnetBravo": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "MGMTxSUBNETxBRAVOxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpcBravo"
+					"Ref": "VpcBravo"
 				},
 				"Tags": [
 					{
@@ -367,13 +367,13 @@
 				]
 			}
 		},
-		"KeyTest1SubnetBravo": {
+		"Test1SubnetBravo": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "TEST1xSUBNETxBRAVOxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpcBravo"
+					"Ref": "VpcBravo"
 				},
 				"Tags": [
 					{
@@ -396,13 +396,13 @@
 				]
 			}
 		},
-		"KeyMgmtSecurityGroupAlpha": {
+		"MgmtSecurityGroupAlpha": {
 			"Type": "AWS::EC2::SecurityGroup",
 			"Properties": {
 				"GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "MGMT_SECURITY_GROUP_ALPHA", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"VpcId": {
-					"Ref": "KeyVpcAlpha"
+					"Ref": "VpcAlpha"
 				},
 				"Tags": [
 					{
@@ -425,23 +425,23 @@
 				]
 			}
 		},
-		"KeyMgmtIngress1Alpha": {
+		"MgmtIngress1Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				}
 			}
 		},
-		"KeyMgmtIngress2Alpha": {
+		"MgmtIngress2Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -449,23 +449,23 @@
 				"CidrIp": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "EC2xCONNECTxCIDR" ] }
 			}
 		},
-		"KeyMgmtIngress3Alpha": {
+		"MgmtIngress3Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				}
 			}
 		},
-		"KeyMgmtIngress22Alpha": {
+		"MgmtIngress22Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -473,11 +473,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress443Alpha": {
+		"MgmtIngress443Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 443,
@@ -485,11 +485,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress3389Alpha": {
+		"MgmtIngress3389Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 3389,
@@ -497,13 +497,13 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-        "KeyTest1SecurityGroupAlpha": {
+        "Test1SecurityGroupAlpha": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
                 "GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "TEST1_SECURITY_GROUP_ALPHA", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
                 "VpcId": {
-                    "Ref": "KeyVpcAlpha"
+                    "Ref": "VpcAlpha"
                 },
                 "SecurityGroupIngress": [
                     {
@@ -537,37 +537,37 @@
 				]
 			}
 		},
-		"KeyTest1Ingress1Alpha": {
+		"Test1Ingress1Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyTest1SecurityGroupAlpha"
+					"Ref": "Test1SecurityGroupAlpha"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyTest1SecurityGroupAlpha"
+					"Ref": "Test1SecurityGroupAlpha"
 				}
 			}
 		},	
-		"KeyTest1Ingress2Alpha": {
+		"Test1Ingress2Alpha": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyTest1SecurityGroupAlpha"
+					"Ref": "Test1SecurityGroupAlpha"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyTest1SecurityGroupBravo"
+					"Ref": "Test1SecurityGroupBravo"
 				}
 			}
 		},	
-		"KeyMgmtSecurityGroupBravo": {
+		"MgmtSecurityGroupBravo": {
 			"Type": "AWS::EC2::SecurityGroup",
 			"Properties": {
 				"GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "MGMT_SECURITY_GROUP_BRAVO", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"VpcId": {
-					"Ref": "KeyVpcBravo"
+					"Ref": "VpcBravo"
 				},
 				"Tags": [
 					{
@@ -590,23 +590,23 @@
 				]
 			}
 		},
-		"KeyMgmtIngress1Bravo": {
+		"MgmtIngress1Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				}
 			}
 		},
-		"KeyMgmtIngress2Bravo": {
+		"MgmtIngress2Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -614,23 +614,23 @@
 				"CidrIp": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "EC2xCONNECTxCIDR" ] }
 			}
 		},
-		"KeyMgmtIngress3Bravo": {
+		"MgmtIngress3Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyMgmtSecurityGroupAlpha"
+					"Ref": "MgmtSecurityGroupAlpha"
 				}
 			}
 		},
-		"KeyMgmtIngress22Bravo": {
+		"MgmtIngress22Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -638,11 +638,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress443Bravo": {
+		"MgmtIngress443Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 443,
@@ -650,11 +650,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress3389Bravo": {
+		"MgmtIngress3389Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroupBravo"
+					"Ref": "MgmtSecurityGroupBravo"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 3389,
@@ -662,13 +662,13 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-        "KeyTest1SecurityGroupBravo": {
+        "Test1SecurityGroupBravo": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
                 "GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "TEST1_SECURITY_GROUP_BRAVO", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
                 "VpcId": {
-                    "Ref": "KeyVpcBravo"
+                    "Ref": "VpcBravo"
                 },
                 "SecurityGroupIngress": [
                     {
@@ -702,31 +702,31 @@
 				]
 			}
 		},
-		"KeyTest1Ingress1Bravo": {
+		"Test1Ingress1Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyTest1SecurityGroupBravo"
+					"Ref": "Test1SecurityGroupBravo"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyTest1SecurityGroupBravo"
+					"Ref": "Test1SecurityGroupBravo"
 				}
 			}
 		},
-		"KeyTest1Ingress2Bravo": {
+		"Test1Ingress2Bravo": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyTest1SecurityGroupBravo"
+					"Ref": "Test1SecurityGroupBravo"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyTest1SecurityGroupAlpha"
+					"Ref": "Test1SecurityGroupAlpha"
 				}
 			}
 		},
-		"KeyInternetGwAlpha": {
+		"InternetGwAlpha": {
 			"Type": "AWS::EC2::InternetGateway",
 			"Properties": {
 				"Tags": [
@@ -750,18 +750,18 @@
 				]
 			}
 		},
-		"KeyGwAttachAlpha": {
+		"GwAttachAlpha": {
 			"Type": "AWS::EC2::VPCGatewayAttachment",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpcAlpha"
+					"Ref": "VpcAlpha"
 				},
 				"InternetGatewayId": {
-					"Ref": "KeyInternetGwAlpha"
+					"Ref": "InternetGwAlpha"
 				}
 			}
 		},
-		"KeyInternetGwBravo": {
+		"InternetGwBravo": {
 			"Type": "AWS::EC2::InternetGateway",
 			"Properties": {
 				"Tags": [
@@ -785,51 +785,51 @@
 				]
 			}
 		},
-		"KeyGwAttachBravo": {
+		"GwAttachBravo": {
 			"Type": "AWS::EC2::VPCGatewayAttachment",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpcBravo"
+					"Ref": "VpcBravo"
 				},
 				"InternetGatewayId": {
-					"Ref": "KeyInternetGwBravo"
+					"Ref": "InternetGwBravo"
 				}
 			}
 		},		
-		"KeyMgmtRouteAlpha": {
+		"MgmtRouteAlpha": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTableAlpha"
+					"Ref": "MgmtRouteTableAlpha"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGwAlpha"
+					"Ref": "InternetGwAlpha"
 				}
 			},
-			"DependsOn": "KeyGwAttachAlpha"
+			"DependsOn": "GwAttachAlpha"
 		},
-        "KeyMgmtPeeringRouteAlpha" : {
+        "MgmtPeeringRouteAlpha" : {
             "Type" : "AWS::EC2::Route",
             "Properties" : {
                 "DestinationCidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "VPCxBRAVOxCIDRxBLOCK"] },
                 "RouteTableId" : { 
-					"Ref" : "KeyMgmtRouteTableAlpha" 
+					"Ref" : "MgmtRouteTableAlpha" 
 				},
                 "VpcPeeringConnectionId" : { 
 					"Ref" : "KeyVPCPeeringConnection" 
 				}
             },
 			"DependsOn": [
-				"KeyMgmtRouteTableAlpha",
+				"MgmtRouteTableAlpha",
 				"KeyVPCPeeringConnection"
 			]			
         },
-		"KeyMgmtRouteTableAlpha": {
+		"MgmtRouteTableAlpha": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpcAlpha"
+					"Ref": "VpcAlpha"
 				},
 				"Tags": [
 					{
@@ -852,27 +852,27 @@
 				]
 			}
 		},
-		"KeyTest1RouteAlpha": {
+		"Test1RouteAlpha": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTableAlpha"
+					"Ref": "Test1RouteTableAlpha"
 				},
 				"NetworkInterfaceId": {
 					"Ref": "KeyDut1Eth1"
 				}
 			},
 			"DependsOn": [
-				"KeyTest1RouteTableAlpha",
+				"Test1RouteTableAlpha",
 				"KeyDut1Eth1"
 			]
 		},		
-		"KeyTest1RouteTableAlpha": {
+		"Test1RouteTableAlpha": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpcAlpha"
+					"Ref": "VpcAlpha"
 				},
 				"Tags": [
 					{
@@ -895,62 +895,62 @@
 				]
 			}
 		},
-		"KeyMgmtSubnetRouteTableAssociationAlpha": {
+		"MgmtSubnetRouteTableAssociationAlpha": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTableAlpha"
+					"Ref": "MgmtRouteTableAlpha"
 				},
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnetAlpha"
+					"Ref": "MgmtSubnetAlpha"
 				}
 			}
 		},
-		"KeyTest1SubnetRouteTableAssociationAlpha": {
+		"Test1SubnetRouteTableAssociationAlpha": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTableAlpha"
+					"Ref": "Test1RouteTableAlpha"
 				},
 				"SubnetId": {
-					"Ref": "KeyTest1SubnetAlpha"
+					"Ref": "Test1SubnetAlpha"
 				}
 			}
 		},
-		"KeyMgmtRouteBravo": {
+		"MgmtRouteBravo": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTableBravo"
+					"Ref": "MgmtRouteTableBravo"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGwBravo"
+					"Ref": "InternetGwBravo"
 				}
 			},
-			"DependsOn": "KeyGwAttachBravo"
+			"DependsOn": "GwAttachBravo"
 		},
-        "KeyMgmtPeeringRouteBravo" : {
+        "MgmtPeeringRouteBravo" : {
             "Type" : "AWS::EC2::Route",
             "Properties" : {
                 "DestinationCidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "VPCxALPHAxCIDRxBLOCK"] },
                 "RouteTableId" : { 
-					"Ref" : "KeyMgmtRouteTableBravo" 
+					"Ref" : "MgmtRouteTableBravo" 
 				},
                 "VpcPeeringConnectionId" : { 
 					"Ref" : "KeyVPCPeeringConnection" 
 				}
             },
 			"DependsOn": [
-				"KeyMgmtRouteTableBravo",
+				"MgmtRouteTableBravo",
 				"KeyVPCPeeringConnection"
 			]				
         },		
-		"KeyMgmtRouteTableBravo": {
+		"MgmtRouteTableBravo": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpcBravo"
+					"Ref": "VpcBravo"
 				},
 				"Tags": [
 					{
@@ -973,27 +973,27 @@
 				]
 			}
 		},
-		"KeyTest1RouteBravo": {
+		"Test1RouteBravo": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTableBravo"
+					"Ref": "Test1RouteTableBravo"
 				},
                 "NetworkInterfaceId": {
 					"Ref": "KeyDut2Eth1"
 				}
 			},
 			"DependsOn": [
-				"KeyTest1RouteTableBravo",
+				"Test1RouteTableBravo",
 				"KeyDut2Eth1"
 			]
 		},
-		"KeyTest1RouteTableBravo": {
+		"Test1RouteTableBravo": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpcBravo"
+					"Ref": "VpcBravo"
 				},
 				"Tags": [
 					{
@@ -1016,25 +1016,25 @@
 				]
 			}
 		},
-		"KeyMgmtSubnetRouteTableAssociationBravo": {
+		"MgmtSubnetRouteTableAssociationBravo": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTableBravo"
+					"Ref": "MgmtRouteTableBravo"
 				},
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnetBravo"
+					"Ref": "MgmtSubnetBravo"
 				}
 			}
 		},
-		"KeyTest1SubnetRouteTableAssociationBravo": {
+		"Test1SubnetRouteTableAssociationBravo": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTableBravo"
+					"Ref": "Test1RouteTableBravo"
 				},
 				"SubnetId": {
-					"Ref": "KeyTest1SubnetBravo"
+					"Ref": "Test1SubnetBravo"
 				}
 			}
 		},
@@ -1047,11 +1047,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnetAlpha"
+					"Ref": "MgmtSubnetAlpha"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroupAlpha"
+						"Ref": "MgmtSecurityGroupAlpha"
 					}
 				],
 				"Tags": [
@@ -1077,7 +1077,7 @@
 				]
 			}
 		},
-		"KeyVMOne1Eth0": {
+		"VMOne1Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1086,11 +1086,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnetAlpha"
+					"Ref": "MgmtSubnetAlpha"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroupAlpha"
+						"Ref": "MgmtSecurityGroupAlpha"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE1xETH0xPRIVATExIPxADDRESS"] },
@@ -1117,7 +1117,7 @@
 				]
 			}
 		},
-		"KeyVMOne1Eth1": {
+		"VMOne1Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1126,11 +1126,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1SubnetAlpha"
+					"Ref": "Test1SubnetAlpha"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroupAlpha"
+						"Ref": "Test1SecurityGroupAlpha"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE1xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1195,7 +1195,7 @@
 				]
 			}
 		},        
-		"KeyVMOne2Eth0": {
+		"VMOne2Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1204,11 +1204,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnetBravo"
+					"Ref": "MgmtSubnetBravo"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroupBravo"
+						"Ref": "MgmtSecurityGroupBravo"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE2xETH0xPRIVATExIPxADDRESS"] },
@@ -1235,7 +1235,7 @@
 				]
 			}
 		},
-		"KeyVMOne2Eth1": {
+		"VMOne2Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1244,11 +1244,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1SubnetBravo"
+					"Ref": "Test1SubnetBravo"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroupBravo"
+						"Ref": "Test1SecurityGroupBravo"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1313,7 +1313,7 @@
 				]
 			}
 		},
-		"KeyVMOne1": {
+		"VMOne1": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1322,7 +1322,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroupAlpha" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroupAlpha" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -1348,13 +1348,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth0"
+							"Ref": "VMOne1Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth1"
+							"Ref": "VMOne1Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1370,7 +1370,7 @@
 				]   
 			}
 		},
-		"KeyVMOne2": {
+		"VMOne2": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1379,7 +1379,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroupBravo" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroupBravo" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -1405,13 +1405,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne2Eth0"
+							"Ref": "VMOne2Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne2Eth1"
+							"Ref": "VMOne2Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1436,7 +1436,7 @@
 				"InstanceType": { "Ref" : "IxClientInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroupAlpha" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroupAlpha" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -1479,7 +1479,7 @@
 				]   
 			},
 			"DependsOn": [
-				"KeyVMOne1"
+				"VMOne1"
 			]
 		},
 		"KeyDut1Eth0": {
@@ -1490,11 +1490,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnetAlpha"
+					"Ref": "MgmtSubnetAlpha"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroupAlpha"
+						"Ref": "MgmtSecurityGroupAlpha"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "DUT1xETH0xPRIVATExIPxADDRESS" ] },
@@ -1528,11 +1528,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1SubnetAlpha"
+					"Ref": "Test1SubnetAlpha"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroupAlpha"
+						"Ref": "Test1SecurityGroupAlpha"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "DUT1xETH1xPRIVATExIPxADDRESS" ] },
@@ -1567,7 +1567,7 @@
 				"InstanceType": { "Ref" : "DUTInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "DUTSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroupAlpha" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroupAlpha" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -1638,11 +1638,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnetBravo"
+					"Ref": "MgmtSubnetBravo"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroupBravo"
+						"Ref": "MgmtSecurityGroupBravo"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "DUT2xETH0xPRIVATExIPxADDRESS" ] },
@@ -1676,11 +1676,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1SubnetBravo"
+					"Ref": "Test1SubnetBravo"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroupBravo"
+						"Ref": "Test1SecurityGroupBravo"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "DUT2xETH1xPRIVATExIPxADDRESS" ] },
@@ -1715,7 +1715,7 @@
 				"InstanceType": { "Ref" : "DUTInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "DUTSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroupBravo" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroupBravo" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -1779,22 +1779,22 @@
 				]]}}						
 			}
 		},
-		"KeyMgmtElasticIp": {
+		"MgmtElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttachAlpha",
+				"GwAttachAlpha",
 				"KeyIxiaClient"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyMgmtElasticIpAssociation": {
+		"MgmtElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyMgmtElasticIp",
+						"MgmtElasticIp",
 						"AllocationId"
 					]
 				},
@@ -1803,58 +1803,58 @@
 				}
 			}
 		},
-		"KeyVMOne1Eth0ElasticIp": {
+		"VMOne1Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttachAlpha",
-				"KeyVMOne1"
+				"GwAttachAlpha",
+				"VMOne1"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne1Eth0ElasticIpAssociation": {
+		"VMOne1Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne1Eth0ElasticIp",
+						"VMOne1Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne1Eth0"
+					"Ref": "VMOne1Eth0"
 				}
 			}
 		},
-		"KeyVMOne2Eth0ElasticIp": {
+		"VMOne2Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttachBravo",
-				"KeyVMOne2"
+				"GwAttachBravo",
+				"VMOne2"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne2Eth0ElasticIpAssociation": {
+		"VMOne2Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne2Eth0ElasticIp",
+						"VMOne2Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne2Eth0"
+					"Ref": "VMOne2Eth0"
 				}
 			}
 		},
 		"KeyDut1ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttachAlpha",
+				"GwAttachAlpha",
 				"KeyDut1"
 			],
 			"Properties": {
@@ -1882,7 +1882,7 @@
 		"KeyDut2ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttachBravo"
+				"GwAttachBravo"
 			],
 			"Properties": {
 				"Domain": "vpc"
@@ -1905,8 +1905,8 @@
 		"KeyVPCPeeringConnection": {
 			"Type": "AWS::EC2::VPCPeeringConnection",
 			"Properties": {
-				"VpcId": {"Ref": "KeyVpcAlpha"},
-				"PeerVpcId": {"Ref": "KeyVpcBravo"},
+				"VpcId": {"Ref": "VpcAlpha"},
+				"PeerVpcId": {"Ref": "VpcBravo"},
 				"Tags": [
 					{
 						"Key": "Name",
@@ -2112,20 +2112,20 @@
       }
     },
 	"Outputs": {
-		"KeyVMOne1": {
+		"VMOne1": {
 			"Description": "KEY_VMONE1_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne1",
+					"VMOne1",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne2": {
+		"VMOne2": {
 			"Description": "KEY_VMONE2_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne2",
+					"VMOne2",
 					"PrivateIp"
 				]
 			}

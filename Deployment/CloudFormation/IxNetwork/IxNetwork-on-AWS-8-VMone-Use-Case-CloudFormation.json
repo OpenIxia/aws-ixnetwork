@@ -177,13 +177,13 @@
 		}
 	},
 	"Resources": {
-		"KeyPlacementGroup": {
+		"PlacementGroup": {
 			"Type" : "AWS::EC2::PlacementGroup",
 			"Properties" : {
 				"Strategy" : { "Fn::FindInMap" : [ "VariableMap", "global", "PLACEMENTxGROUPxSTRATEGY"] }
 			}
 		},
-		"KeyVpc": {
+		"Vpc": {
 			"Type": "AWS::EC2::VPC",
 			"Properties": {
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "VPCxCIDRxBLOCK"] },
@@ -211,24 +211,24 @@
 				]
 			}
 		},
-		"KeyVpcFlowLog" : {
+		"VpcFlowLog" : {
 			"Type" : "AWS::EC2::FlowLog",
 			"Properties" : {
 				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["KeyVPCFlowLogAccessRole", "Arn"] },
 				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "VPC_FLOW_LOG", 
 							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
-				"ResourceId" : { "Ref" : "KeyVpc" },
+				"ResourceId" : { "Ref" : "Vpc" },
 				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxRESOURCExTYPE"] },
 				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "global", "FLOWxLOGxTRAFFICxTYPE"] }
 			}
 		},
-		"KeyMgmtSubnet": {
+		"MgmtSubnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "MGMTxSUBNETxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -251,13 +251,13 @@
 				]
 			}
 		},
-		"KeyTest1Subnet": {
+		"Test1Subnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "TEST1xSUBNETxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -280,13 +280,13 @@
 				]
 			}
 		},
-  		"KeyTest2Subnet": {
+  		"Test2Subnet": {
 			"Type": "AWS::EC2::Subnet",
 			"Properties": {
 				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "global", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
 				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "global", "TEST2xSUBNETxCIDRxBLOCK"] },
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -309,13 +309,13 @@
 				]
 			}
 		},
-		"KeyMgmtSecurityGroup": {
+		"MgmtSecurityGroup": {
 			"Type": "AWS::EC2::SecurityGroup",
 			"Properties": {
 				"GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "MGMT_SECURITY_GROUP", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -338,23 +338,23 @@
 				]
 			}
 		},
-		"KeyMgmtIngress1": {
+		"MgmtIngress1": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				}
 			}
 		},
-		"KeyMgmtIngress2": {
+		"MgmtIngress2": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -362,11 +362,11 @@
 				"CidrIp": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "EC2xCONNECTxCIDR" ] }
 			}
 		},
-		"KeyMgmtIngress22": {
+		"MgmtIngress22": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 22,
@@ -374,11 +374,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress443": {
+		"MgmtIngress443": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 443,
@@ -386,11 +386,11 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-		"KeyMgmtIngress3389": {
+		"MgmtIngress3389": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyMgmtSecurityGroup"
+					"Ref": "MgmtSecurityGroup"
 				},
 				"IpProtocol": "tcp",
 				"FromPort": 3389,
@@ -398,13 +398,13 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},
-        "KeyTest1SecurityGroup": {
+        "Test1SecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
                 "GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, "TEST1_SECURITY_GROUP", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
                 "VpcId": {
-                    "Ref": "KeyVpc"
+                    "Ref": "Vpc"
                 },
                 "SecurityGroupIngress": [
                     {
@@ -438,27 +438,27 @@
 				]
 			}
 		},
-		"KeyTest1Ingress1": {
+		"Test1Ingress1": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
 			"Properties": {
 				"GroupId": {
-					"Ref": "KeyTest1SecurityGroup"
+					"Ref": "Test1SecurityGroup"
 				},
 				"IpProtocol": "-1",
 				"SourceSecurityGroupId": {
-					"Ref": "KeyTest1SecurityGroup"
+					"Ref": "Test1SecurityGroup"
 				}
 			}
 		},
-		"KeyDefaultEgress1": {
+		"DefaultEgress1": {
 			"Type" : "AWS::EC2::SecurityGroupEgress",
 			"Properties" : {
-				"GroupId": { "Fn::GetAtt" : ["KeyVpc", "DefaultSecurityGroup"] },
+				"GroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] },
 				"IpProtocol": "-1",
-				"SourceSecurityGroupId": { "Fn::GetAtt" : ["KeyVpc", "DefaultSecurityGroup"] }
+				"SourceSecurityGroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] }
 			}
 		},
-		"KeyInternetGw": {
+		"InternetGw": {
 			"Type": "AWS::EC2::InternetGateway",
 			"Properties": {
 				"Tags": [
@@ -482,35 +482,35 @@
 				]
 			}
 		},
-		"KeyGwAttach": {
+		"GwAttach": {
 			"Type": "AWS::EC2::VPCGatewayAttachment",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"InternetGatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			}
 		},
-		"KeyMgmtRoute": {
+		"MgmtRoute": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTable"
+					"Ref": "MgmtRouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
-			"DependsOn": "KeyGwAttach"
+			"DependsOn": "GwAttach"
 		},
-		"KeyMgmtRouteTable": {
+		"MgmtRouteTable": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -533,24 +533,24 @@
 				]
 			}
 		},
-		"KeyTest1Route": {
+		"Test1Route": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTable"
+					"Ref": "Test1RouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
-			"DependsOn": "KeyGwAttach"
+			"DependsOn": "GwAttach"
 		},		
-		"KeyTest1RouteTable": {
+		"Test1RouteTable": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -573,24 +573,24 @@
 				]
 			}
 		},
-		"KeyTest2Route": {
+		"Test2Route": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
 				"DestinationCidrBlock": "0.0.0.0/0",
 				"RouteTableId": {
-					"Ref": "KeyTest2RouteTable"
+					"Ref": "Test2RouteTable"
 				},
 				"GatewayId": {
-					"Ref": "KeyInternetGw"
+					"Ref": "InternetGw"
 				}
 			},
-			"DependsOn": "KeyGwAttach"
+			"DependsOn": "GwAttach"
 		},		
-		"KeyTest2RouteTable": {
+		"Test2RouteTable": {
 			"Type": "AWS::EC2::RouteTable",
 			"Properties": {
 				"VpcId": {
-					"Ref": "KeyVpc"
+					"Ref": "Vpc"
 				},
 				"Tags": [
 					{
@@ -613,36 +613,36 @@
 				]
 			}
 		},
-		"KeyMgmtSubnetRouteTableAssociation": {
+		"MgmtSubnetRouteTableAssociation": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyMgmtRouteTable"
+					"Ref": "MgmtRouteTable"
 				},
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				}
 			}
 		},
-		"KeyTest1SubnetRouteTableAssociation": {
+		"Test1SubnetRouteTableAssociation": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyTest1RouteTable"
+					"Ref": "Test1RouteTable"
 				},
 				"SubnetId": {
-					"Ref": "KeyTest1Subnet"
+					"Ref": "Test1Subnet"
 				}
 			}
 		},
-		"KeyTest2SubnetRouteTableAssociation": {
+		"Test2SubnetRouteTableAssociation": {
 			"Type": "AWS::EC2::SubnetRouteTableAssociation",
 			"Properties": {
 				"RouteTableId": {
-					"Ref": "KeyTest2RouteTable"
+					"Ref": "Test2RouteTable"
 				},
 				"SubnetId": {
-					"Ref": "KeyTest2Subnet"
+					"Ref": "Test2Subnet"
 				}
 			}
 		},
@@ -655,11 +655,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"Tags": [
@@ -685,7 +685,7 @@
 				]
 			}
 		},
-		"KeyVMOne1Eth0": {
+		"VMOne1Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -694,11 +694,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE1xETH0xPRIVATExIPxADDRESS"] },
@@ -725,7 +725,7 @@
 				]
 			}
 		},
-		"KeyVMOne1Eth1": {
+		"VMOne1Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -734,11 +734,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1Subnet"
+					"Ref": "Test1Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE1xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -803,7 +803,7 @@
 				]
 			}
 		},        
-		"KeyVMOne2Eth0": {
+		"VMOne2Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -812,11 +812,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE2xETH0xPRIVATExIPxADDRESS"] },
@@ -843,7 +843,7 @@
 				]
 			}
 		},
-		"KeyVMOne2Eth1": {
+		"VMOne2Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -852,11 +852,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest2Subnet"
+					"Ref": "Test2Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -921,7 +921,7 @@
 				]
 			}
 		},
-		"KeyVMOne3Eth0": {
+		"VMOne3Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -930,11 +930,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE3xETH0xPRIVATExIPxADDRESS"] },
@@ -961,7 +961,7 @@
 				]
 			}
 		},
-		"KeyVMOne3Eth1": {
+		"VMOne3Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -970,11 +970,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1Subnet"
+					"Ref": "Test1Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE3xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1039,7 +1039,7 @@
 				]
 			}
 		},        
-		"KeyVMOne4Eth0": {
+		"VMOne4Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1048,11 +1048,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE4xETH0xPRIVATExIPxADDRESS"] },
@@ -1079,7 +1079,7 @@
 				]
 			}
 		},
-		"KeyVMOne4Eth1": {
+		"VMOne4Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1088,11 +1088,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest2Subnet"
+					"Ref": "Test2Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE4xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1157,7 +1157,7 @@
 				]
 			}
 		},
-		"KeyVMOne5Eth0": {
+		"VMOne5Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1166,11 +1166,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE5xETH0xPRIVATExIPxADDRESS"] },
@@ -1197,7 +1197,7 @@
 				]
 			}
 		},
-		"KeyVMOne5Eth1": {
+		"VMOne5Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1206,11 +1206,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1Subnet"
+					"Ref": "Test1Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE5xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1275,7 +1275,7 @@
 				]
 			}
 		},        
-		"KeyVMOne6Eth0": {
+		"VMOne6Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1284,11 +1284,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE6xETH0xPRIVATExIPxADDRESS"] },
@@ -1315,7 +1315,7 @@
 				]
 			}
 		},
-		"KeyVMOne6Eth1": {
+		"VMOne6Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1324,11 +1324,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest2Subnet"
+					"Ref": "Test2Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE6xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1393,7 +1393,7 @@
 				]
 			}
 		},
-		"KeyVMOne7Eth0": {
+		"VMOne7Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1402,11 +1402,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE7xETH0xPRIVATExIPxADDRESS"] },
@@ -1433,7 +1433,7 @@
 				]
 			}
 		},
-		"KeyVMOne7Eth1": {
+		"VMOne7Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1442,11 +1442,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest1Subnet"
+					"Ref": "Test1Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE7xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1511,7 +1511,7 @@
 				]
 			}
 		},        
-		"KeyVMOne8Eth0": {
+		"VMOne8Eth0": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1520,11 +1520,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyMgmtSubnet"
+					"Ref": "MgmtSubnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyMgmtSecurityGroup"
+						"Ref": "MgmtSecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE8xETH0xPRIVATExIPxADDRESS"] },
@@ -1551,7 +1551,7 @@
 				]
 			}
 		},
-		"KeyVMOne8Eth1": {
+		"VMOne8Eth1": {
 			"Type": "AWS::EC2::NetworkInterface",
 			"Properties": {
 				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "global", "PROJECTxTAG"] }, 
@@ -1560,11 +1560,11 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "global", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "KeyTest2Subnet"
+					"Ref": "Test2Subnet"
 				},
 				"GroupSet": [
 					{
-						"Ref": "KeyTest1SecurityGroup"
+						"Ref": "Test1SecurityGroup"
 					}
 				],
 				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VMONE8xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
@@ -1629,7 +1629,7 @@
 				]
 			}
 		},
-		"KeyVMOne1": {
+		"VMOne1": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1638,7 +1638,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -1665,13 +1665,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth0"
+							"Ref": "VMOne1Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne1Eth1"
+							"Ref": "VMOne1Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1687,7 +1687,7 @@
 				]   
 			}
 		},
-		"KeyVMOne2": {
+		"VMOne2": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1696,7 +1696,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -1723,13 +1723,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne2Eth0"
+							"Ref": "VMOne2Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne2Eth1"
+							"Ref": "VMOne2Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1745,7 +1745,7 @@
 				]
 			}
 		},
-		"KeyVMOne3": {
+		"VMOne3": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1754,7 +1754,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -1781,13 +1781,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne3Eth0"
+							"Ref": "VMOne3Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne3Eth1"
+							"Ref": "VMOne3Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1803,7 +1803,7 @@
 				]   
 			}
 		},
-		"KeyVMOne4": {
+		"VMOne4": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1812,7 +1812,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -1839,13 +1839,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne4Eth0"
+							"Ref": "VMOne4Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne4Eth1"
+							"Ref": "VMOne4Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1861,7 +1861,7 @@
 				]   
 			}
 		},            
-		"KeyVMOne5": {
+		"VMOne5": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1870,7 +1870,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -1897,13 +1897,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne5Eth0"
+							"Ref": "VMOne5Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne5Eth1"
+							"Ref": "VMOne5Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1919,7 +1919,7 @@
 				]   
 			}
 		},
-		"KeyVMOne6": {
+		"VMOne6": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1928,7 +1928,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -1955,13 +1955,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne6Eth0"
+							"Ref": "VMOne6Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne6Eth1"
+							"Ref": "VMOne6Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -1977,7 +1977,7 @@
 				]   
 			}
 		},            
-		"KeyVMOne7": {
+		"VMOne7": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -1986,7 +1986,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -2013,13 +2013,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne7Eth0"
+							"Ref": "VMOne7Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne7Eth1"
+							"Ref": "VMOne7Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -2035,7 +2035,7 @@
 				]   
 			}
 		},
-		"KeyVMOne8": {
+		"VMOne8": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExDISABLExAPIxTERMINATION"] },
@@ -2044,7 +2044,7 @@
 				"InstanceType": { "Ref" : "VMoneInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"IamInstanceProfile": { "Ref": "KeyEC2InstanceProfile" },				
 				"Tags": [
 					{
@@ -2071,13 +2071,13 @@
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne8Eth0"
+							"Ref": "VMOne8Eth0"
 						},
 						"DeviceIndex": "0"
 					},
 					{
 						"NetworkInterfaceId": {
-							"Ref": "KeyVMOne8Eth1"
+							"Ref": "VMOne8Eth1"
 						},
 						"DeviceIndex": "1"
 					}
@@ -2102,7 +2102,7 @@
 				"InstanceType": { "Ref" : "IxClientInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "global", "INSTANCExMONITORING"] },
                 "KeyName" : { "Ref" : "IxClientSSHKey" },
-				"PlacementGroupName" : { "Ref" : "KeyPlacementGroup" },
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"Tags": [
 					{
 						"Key": "Name",
@@ -2145,25 +2145,25 @@
 				]   
 			},
 			"DependsOn": [
-				"KeyVMOne1"
+				"VMOne1"
 			]
 		},
-		"KeyMgmtElasticIp": {
+		"MgmtElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
+				"GwAttach",
 				"KeyIxiaClient"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyMgmtElasticIpAssociation": {
+		"MgmtElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyMgmtElasticIp",
+						"MgmtElasticIp",
 						"AllocationId"
 					]
 				},
@@ -2172,195 +2172,195 @@
 				}
 			}
 		},
-		"KeyVMOne1Eth0ElasticIp": {
+		"VMOne1Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne1"
+				"GwAttach",
+				"VMOne1"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne1Eth0ElasticIpAssociation": {
+		"VMOne1Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne1Eth0ElasticIp",
+						"VMOne1Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne1Eth0"
+					"Ref": "VMOne1Eth0"
 				}
 			}
 		},
-		"KeyVMOne2Eth0ElasticIp": {
+		"VMOne2Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne2"
+				"GwAttach",
+				"VMOne2"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne2Eth0ElasticIpAssociation": {
+		"VMOne2Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne2Eth0ElasticIp",
+						"VMOne2Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne2Eth0"
+					"Ref": "VMOne2Eth0"
 				}
 			}
 		},
-		"KeyVMOne3Eth0ElasticIp": {
+		"VMOne3Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne3"
+				"GwAttach",
+				"VMOne3"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne3Eth0ElasticIpAssociation": {
+		"VMOne3Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne3Eth0ElasticIp",
+						"VMOne3Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne3Eth0"
+					"Ref": "VMOne3Eth0"
 				}
 			}
 		},
-		"KeyVMOne4Eth0ElasticIp": {
+		"VMOne4Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne4"
+				"GwAttach",
+				"VMOne4"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne4Eth0ElasticIpAssociation": {
+		"VMOne4Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne4Eth0ElasticIp",
+						"VMOne4Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne4Eth0"
+					"Ref": "VMOne4Eth0"
 				}
 			}
 		},
-		"KeyVMOne5Eth0ElasticIp": {
+		"VMOne5Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne5"
+				"GwAttach",
+				"VMOne5"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne5Eth0ElasticIpAssociation": {
+		"VMOne5Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne5Eth0ElasticIp",
+						"VMOne5Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne5Eth0"
+					"Ref": "VMOne5Eth0"
 				}
 			}
 		},
-		"KeyVMOne6Eth0ElasticIp": {
+		"VMOne6Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne6"
+				"GwAttach",
+				"VMOne6"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne6Eth0ElasticIpAssociation": {
+		"VMOne6Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne6Eth0ElasticIp",
+						"VMOne6Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne6Eth0"
+					"Ref": "VMOne6Eth0"
 				}
 			}
 		},
-		"KeyVMOne7Eth0ElasticIp": {
+		"VMOne7Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne7"
+				"GwAttach",
+				"VMOne7"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne7Eth0ElasticIpAssociation": {
+		"VMOne7Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne7Eth0ElasticIp",
+						"VMOne7Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne7Eth0"
+					"Ref": "VMOne7Eth0"
 				}
 			}
 		},
-		"KeyVMOne8Eth0ElasticIp": {
+		"VMOne8Eth0ElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
-				"KeyGwAttach",
-				"KeyVMOne8"
+				"GwAttach",
+				"VMOne8"
 			],
 			"Properties": {
 				"Domain": "vpc"
 			}
 		},
-		"KeyVMOne8Eth0ElasticIpAssociation": {
+		"VMOne8Eth0ElasticIpAssociation": {
 			"Type": "AWS::EC2::EIPAssociation",
 			"Properties": {
 				"AllocationId": {
 					"Fn::GetAtt": [
-						"KeyVMOne8Eth0ElasticIp",
+						"VMOne8Eth0ElasticIp",
 						"AllocationId"
 					]
 				},
 				"NetworkInterfaceId": {
-					"Ref": "KeyVMOne8Eth0"
+					"Ref": "VMOne8Eth0"
 				}
 			}
 		},
@@ -2524,74 +2524,74 @@
       }
     },
 	"Outputs": {
-		"KeyVMOne1": {
+		"VMOne1": {
 			"Description": "KEY_VMONE1_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne1",
+					"VMOne1",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne2": {
+		"VMOne2": {
 			"Description": "KEY_VMONE2_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne2",
+					"VMOne2",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne3": {
+		"VMOne3": {
 			"Description": "KEY_VMONE3_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne3",
+					"VMOne3",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne4": {
+		"VMOne4": {
 			"Description": "KEY_VMONE4_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne4",
+					"VMOne4",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne5": {
+		"VMOne5": {
 			"Description": "KEY_VMONE5_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne5",
+					"VMOne5",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne6": {
+		"VMOne6": {
 			"Description": "KEY_VMONE6_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne6",
+					"VMOne6",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne7": {
+		"VMOne7": {
 			"Description": "KEY_VMONE7_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne7",
+					"VMOne7",
 					"PrivateIp"
 				]
 			}
 		},
-		"KeyVMOne8": {
+		"VMOne8": {
 			"Description": "KEY_VMONE8_PRIVATE_IP",
 			"Value": {
 				"Fn::GetAtt": [
-					"KeyVMOne8",
+					"VMOne8",
 					"PrivateIp"
 				]
 			}
