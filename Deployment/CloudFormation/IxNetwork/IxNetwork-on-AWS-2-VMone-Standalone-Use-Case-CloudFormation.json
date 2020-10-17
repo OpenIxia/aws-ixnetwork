@@ -132,8 +132,8 @@
 		},
 		"VariableMap" : {
 			"global" : {
-				"OPTIONSxTAG" : "DAY",
-				"PROJECTxTAG" : "IXIA",
+				"OPTIONSxTAG" : "MANUAL",
+				"PROJECTxTAG" : "OPEN_IXIA",
 				"VPCxINSTANCExTENANCY" : "default",
 				"VPCxENABLExDNSxSUPPORT" : true,
 				"VPCxENABLExDNSxHOSTNAMES" : true,
@@ -1354,11 +1354,12 @@
         "Description" : "Instance type of VMONE Appliance VM",
         "Type" : "String",
         "AllowedValues": [
-			"c4.8xlarge",
-			"c4.4xlarge",
-			"c4.2xlarge"
+			"c5n.18xlarge",
+			"c5n.9xlarge",
+			"c5n.xlarge",
+			"c5.xlarge"
         ],
-        "Default" : "c4.4xlarge"
+        "Default" : "c5n.xlarge"
       },
         "VMOne1Eth0PrivateIpAddress" : {
         "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})",
