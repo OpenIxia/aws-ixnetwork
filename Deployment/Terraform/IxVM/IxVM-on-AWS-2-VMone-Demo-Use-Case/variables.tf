@@ -36,7 +36,7 @@ variable "IxClientSSHKey" {
 variable "VMoneInstanceType" {
 	description = "Instance type of VMONE Appliance VM"
 	type = string
-	default = "c4.8xlarge"
+	default = "c5n.xlarge"
 	validation {
 		condition =  can(regex("c5n.18xlarge", var.VMoneInstanceType)) || can(regex("c5n.9xlarge", var.VMoneInstanceType)) || can(regex("c5n.xlarge", var.VMoneInstanceType)) || can(regex("c5.xlarge", var.VMoneInstanceType))
 		error_message = "VMoneInstanceType must be one of (c5n.18xlarge | c5n.9xlarge | c5n.xlarge | c5.xlarge) types."
